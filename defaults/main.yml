@@ -1,0 +1,19 @@
+vector_version: "0.39.0"
+vector_pkg_type: "deb"                         # deb | rpm
+vector_service_name: "vector"
+vector_config_path: "/etc/vector/vector.toml"
+
+vector_download_deb: "https://packages.timber.io/vector/{{ vector_version }}/vector_{{ vector_version }}-1_amd64.deb"
+vector_download_rpm: "https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-1.x86_64.rpm"
+
+vector_sources:
+  syslog:
+    type: "syslog"
+    address: "0.0.0.0:514"
+    mode: "udp"
+
+vector_sinks:
+  local_file:
+    type: "file"
+    inputs: ["syslog"]
+    path: "/var/log/vector/syslog.log"
