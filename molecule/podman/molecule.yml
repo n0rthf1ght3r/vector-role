@@ -5,7 +5,7 @@ driver:
 
 platforms:
   - name: ubuntu
-    image: docker.io/library/ubuntu:22.04   # podman тянет тот же образ
+    image: docker.io/library/ubuntu:22.04
     pre_build_image: true
     privileged: true
     tty: true
@@ -30,7 +30,7 @@ provisioner:
     group_vars:
       all:
         ansible_become: false
-        vector_manage_service: false  # в контейнерах без systemd сервис не трогаем
+        vector_manage_service: false
 
 verifier:
   name: ansible

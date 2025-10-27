@@ -1,6 +1,6 @@
 galaxy_info:
-  namespace: admkea        # замените своим (строчные, без дефисов)
-  role_name: vector_role   # тоже без дефисов
+  namespace: admkea
+  role_name: vector_role
   author: adm_kea
   description: Install and configure Vector
   license: MIT

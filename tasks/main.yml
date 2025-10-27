@@ -1,5 +1,4 @@
 ---
-# Debian/Ubuntu: ставим зависимости через apt
 - name: Ensure prerequisite packages are present (Debian)
   ansible.builtin.apt:
     name: "{{ vector_packages_debian }}"
@@ -7,8 +6,6 @@
     state: present
   when: ansible_os_family | default('') == "Debian"
 
-# RHEL/OracleLinux/Rocky/Alma: проверяем и ставим зависимости через raw+sh
-# (важно для podman: всегда запускать через /bin/sh -lc)
 - name: Check missing prereqs on RHEL-like
   ansible.builtin.raw: >
     /bin/sh -lc '
@@ -40,7 +37,6 @@
     - prereqs_out.stdout | trim != ""
   changed_when: true
 
-# Загрузка пакетов Vector
 - name: Download Vector package (Debian)
   ansible.builtin.get_url:
     url: "{{ vector_download_deb }}"
@@ -61,7 +57,6 @@
     mode: "0644"
   when: vector_pkg_type == "rpm"
 
-# Idempotentная установка rpm (через raw, чтобы не зависеть от python dnf/yum в контейнере)
 - name: Check Vector rpm installed (RHEL-like)
   ansible.builtin.raw: >
     /bin/sh -lc '
@@ -82,7 +77,6 @@
     - vector_rpm_check.rc | default(1) != 0
   changed_when: true
 
-# Конфигурация Vector
 - name: Ensure config dir exists
   ansible.builtin.file:
     path: "{{ vector_config_path | dirname }}"
@@ -96,7 +90,6 @@
     mode: "0644"
   notify: Restart vector
 
-# Управление сервисом (по умолчанию включено; можно отключить var-ом в контейнерах)
 - name: Enable and start Vector
   ansible.builtin.service:
     name: "{{ vector_service_name }}"

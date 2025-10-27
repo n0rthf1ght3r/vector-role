@@ -1,22 +1,16 @@
 ---
-# Версию можно менять при необходимости
 vector_version: "0.33.0"
 
-# Пути скачивания пакетов Vector; если меняешь версию — ссылки подставятся автоматически
 vector_download_deb: "https://packages.timber.io/vector/{{ vector_version }}/vector_{{ vector_version }}-1_amd64.deb"
 vector_download_rpm: "https://packages.timber.io/vector/{{ vector_version }}/vector-{{ vector_version }}-1.x86_64.rpm"
 
-# Путь до конфига и имя сервиса
 vector_config_path: /etc/vector/vector.toml
 vector_service_name: vector
 
-# Управление сервисом (в контейнерах Molecule — отключаем инвенторием)
 vector_manage_service: true
 
-# Автовыбор формата пакета по семейству ОС
 vector_pkg_type: "{{ 'deb' if (ansible_facts.os_family | default('')) == 'Debian' else 'rpm' }}"
 
-# Пререквизиты
 vector_packages_debian:
   - ca-certificates
   - curl

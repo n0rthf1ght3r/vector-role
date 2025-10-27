@@ -1,5 +1,4 @@
 ---
-# Converge для RHEL-like (OracleLinux/RHEL/Rocky/Alma)
 - name: Converge RHEL-like
   hosts: oraclelinux8
   gather_facts: true
@@ -10,7 +9,6 @@
       ansible.builtin.include_role:
         name: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | default(playbook_dir ~ '/..', true) }}"
 
-    # ВАЖНО: raw всегда через /bin/sh -lc !
     - name: Check missing prereqs on RHEL-like
       ansible.builtin.raw: >
         /bin/sh -lc '
@@ -39,13 +37,11 @@
       when: prereqs_out.stdout | trim != ""
       changed_when: true
 
-    # Сервис в контейнере без systemd — пропускаем
     - name: Enable and start Vector
       ansible.builtin.debug:
         msg: "Skipping service management under podman containers (no systemd)"
       changed_when: false
 
-# Converge для Debian/Ubuntu
 - name: Converge Debian-like
   hosts: ubuntu
   gather_facts: true
