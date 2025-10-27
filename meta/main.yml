@@ -1,13 +1,13 @@
----
 galaxy_info:
-  role_name: vector
-  author: Kryukov Egor
-  description: Install & configure Vector (telemetry agent)
+  namespace: admkea        # замените своим (строчные, без дефисов)
+  role_name: vector_role   # тоже без дефисов
+  author: adm_kea
+  description: Install and configure Vector
   license: MIT
-  min_ansible_version: "2.10"
+  min_ansible_version: "2.14"
   platforms:
-    - name: Debian
-      versions: [bullseye, bookworm]
-    - name: EL
-      versions: [8, 9]
+    - name: Ubuntu
+      versions: [focal, jammy]
+    - name: OracleLinux
+      versions: [8]
 dependencies: []
